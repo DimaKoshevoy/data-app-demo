@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 type IntervalData = {
   open: number;
@@ -22,7 +22,7 @@ const initialState: State = {
 };
 
 export const getChartData = createAsyncThunk(
-  "chartData/getChartData",
+  'chartData/getChartData',
   async (tokenAddress: string) => {
     const dataResponse = await fetch(
       `${process.env.REACT_APP_API_ROOT}/chart/${tokenAddress}`
@@ -34,7 +34,7 @@ export const getChartData = createAsyncThunk(
 );
 
 const singleTokenSlice = createSlice({
-  name: "chartData",
+  name: 'chartData',
   initialState,
   reducers: {
     cleanChartData(state) {

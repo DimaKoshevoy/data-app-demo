@@ -1,5 +1,5 @@
-import React from "react";
-import { Loader } from "./loader";
+import React from 'react';
+import { Loader } from './loader';
 
 export const LoadingOverlay = () => (
   <div className="w-full h-full flex items-center justify-center">

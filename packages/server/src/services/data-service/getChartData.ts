@@ -1,4 +1,4 @@
-import { getPriceInUSD } from "./utils";
+import { getPriceInUSD } from './utils';
 
 export const getChartData = (queryData: any) => {
   const chartData = queryData.data.CHART_DATA.dexTrades;

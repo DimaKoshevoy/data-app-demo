@@ -1,26 +1,26 @@
-import findWorkspaceRoot from "find-yarn-workspace-root";
-import dotenv from "dotenv";
-import path from "path";
+import findWorkspaceRoot from 'find-yarn-workspace-root';
+import dotenv from 'dotenv';
+import path from 'path';
 
 const workspaceRoot = findWorkspaceRoot();
 if (!workspaceRoot) {
-  throw new Error("No workspace Root");
+  throw new Error('No workspace Root');
 }
 dotenv.config({
-  path: path.join(workspaceRoot, ".env"),
+  path: path.join(workspaceRoot, '.env'),
 });
 
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import helmet from "helmet";
-import contentSecurityPolicy from "helmet-csp";
-import { randomUUID } from "crypto";
-import { logger } from "./logger";
-import DataService from "./services/data-service/DataService";
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import helmet from 'helmet';
+import contentSecurityPolicy from 'helmet-csp';
+import { randomUUID } from 'crypto';
+import { logger } from './logger';
+import DataService from './services/data-service/DataService';
 
 const DEFAULT_PORT = 8000;
-const DEFAULT_ORIGIN = "*";
+const DEFAULT_ORIGIN = '*';
 const PORT = process.env.PORT || DEFAULT_PORT;
 const ORIGIN = process.env.ORIGIN || DEFAULT_ORIGIN;
 
@@ -40,7 +40,7 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "../../client/build")));
+app.use(express.static(path.join(__dirname, '../../client/build')));
 
 app.use(
   cors({
@@ -55,11 +55,11 @@ app.listen(PORT, () => {
   DataService.init(250);
 });
 
-app.get("/api/subscribe", (request, response) => {
+app.get('/api/subscribe', (request, response) => {
   const headers = {
-    "Content-Type": "text/event-stream",
-    Connection: "keep-alive",
-    "Cache-Control": "no-cache",
+    'Content-Type': 'text/event-stream',
+    Connection: 'keep-alive',
+    'Cache-Control': 'no-cache',
   };
   response.writeHead(200, headers);
 
@@ -67,13 +67,13 @@ app.get("/api/subscribe", (request, response) => {
   logger.info(`${clientId} Connection established`);
   DataService.addClient(clientId, response);
 
-  request.on("close", () => {
+  request.on('close', () => {
     logger.info(`${clientId} Connection closed`);
     DataService.removeClient(clientId);
   });
 });
 
-app.get("/api/chart/:address", async (request, response) => {
+app.get('/api/chart/:address', async (request, response) => {
   const tokenAddress = request.params.address;
 
   const chartData = await DataService.getChart(tokenAddress);

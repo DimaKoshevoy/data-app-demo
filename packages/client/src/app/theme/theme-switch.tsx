@@ -1,6 +1,6 @@
-import React from "react";
-import { useTheme, THEMES } from "./useTheme";
-import { SunIcon, MoonIcon } from "@heroicons/react/outline";
+import React from 'react';
+import { useTheme, THEMES } from './useTheme';
+import { SunIcon, MoonIcon } from '@heroicons/react/outline';
 
 export const ThemeSwitch = () => {
   const { theme, toggleTheme } = useTheme();

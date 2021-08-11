@@ -9,10 +9,10 @@
     <script>
       // On page load or when changing themes, best to add inline in `head` to avoid FOUC
       // CSP hash sha256-KbPGqvsMKon/cJBuFN6o7mMo+6J91JeuAswXbrhPh+A=
-      if (localStorage.theme === "dark" || !("theme" in localStorage)) {
-        document.documentElement.classList.add("dark");
+      if (localStorage.theme === 'dark' || !('theme' in localStorage)) {
+        document.documentElement.classList.add('dark');
       } else {
-        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.remove('dark');
       }
     </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.ico" />

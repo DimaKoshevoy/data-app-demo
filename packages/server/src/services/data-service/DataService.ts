@@ -1,7 +1,7 @@
-import { MongoClient } from "mongodb";
-import { Response } from "express";
-import { logger } from "../../logger";
-import { client } from "./bitqueryGraphQLClient";
+import { MongoClient } from 'mongodb';
+import { Response } from 'express';
+import { logger } from '../../logger';
+import { client } from './bitqueryGraphQLClient';
 import {
   BROKEN_ADDRESS,
   BROKEN_NAME,
@@ -9,17 +9,17 @@ import {
   TIME_INTERVALS_DATA,
   EXCHANGE,
   QUOTE_CURRENCY,
-} from "./constants";
+} from './constants';
 import {
   GET_VOLUME,
   GET_TIME_LAUNCHED,
   getIntervalsQuery,
   CHART_DATA_QUERY,
-} from "./queries";
-import { getTokenPoolLiquidity } from "./getChainData";
-import { getTableData } from "./getTableData";
-import { getChartData } from "./getChartData";
-import { ethers } from "ethers";
+} from './queries';
+import { getTokenPoolLiquidity } from './getChainData';
+import { getTableData } from './getTableData';
+import { getChartData } from './getChartData';
+import { ethers } from 'ethers';
 
 type Client = {
   id: string;
@@ -32,8 +32,8 @@ const ONE_DAY = ONE_HOUR * 24;
 const VOLUME_TIME_PERIOD = ONE_MINUTE * 60;
 const UPDATE_INTERVAL = ONE_MINUTE * 2;
 
-const DB_URL = process.env.MONGODB_URI || "";
-const DB_NAME = process.env.MONGODB_NAME || "";
+const DB_URL = process.env.MONGODB_URI || '';
+const DB_NAME = process.env.MONGODB_NAME || '';
 
 class DataService {
   mongoClient = new MongoClient(DB_URL);
@@ -88,21 +88,21 @@ class DataService {
   // TODO refactor monolith
   getData = async () => {
     const db = this.mongoClient.db(DB_NAME);
-    const tokensCollection = db.collection("tokens");
+    const tokensCollection = db.collection('tokens');
 
     const limit = this.dataLimit;
     const date = new Date(Date.now() - VOLUME_TIME_PERIOD).toISOString();
 
-    logger.info("fetching volume data");
+    logger.info('fetching volume data');
     let volumeData;
     try {
       volumeData = await client.query({
         query: GET_VOLUME,
-        fetchPolicy: "network-only",
+        fetchPolicy: 'network-only',
         variables: { limit, date, exchange: EXCHANGE, quote: QUOTE_CURRENCY },
       });
     } catch (e) {
-      this.handleError("Error fetching Volume Data", e);
+      this.handleError('Error fetching Volume Data', e);
       return;
     }
 
@@ -117,14 +117,14 @@ class DataService {
       }
     );
 
-    logger.info("fetching tokens from database");
+    logger.info('fetching tokens from database');
     let tokensFromDatabase;
     try {
       tokensFromDatabase = await tokensCollection
         .find({ _id: { $in: tokenAddresses } })
         .toArray();
     } catch (e) {
-      this.handleError("Error reading from database", e);
+      this.handleError('Error reading from database', e);
       return;
     }
 
@@ -184,7 +184,7 @@ class DataService {
       ({ timestamp }: any) => !timestamp
     );
 
-    logger.info("fetching info for new tokens");
+    logger.info('fetching info for new tokens');
     let launchInfo;
     let fetchedTokenLaunchInfo = {};
     let dataWithFetchedTimes = [];
@@ -241,18 +241,18 @@ class DataService {
         );
       }
     } catch (e) {
-      this.handleError("Error fetching info for new tokens", e);
+      this.handleError('Error fetching info for new tokens', e);
       return;
     }
 
     const newData = [...dataWithTimes, ...dataWithFetchedTimes];
 
-    logger.info("fetching intervals data");
+    logger.info('fetching intervals data');
     let intervalsData: any;
     try {
       intervalsData = await client.query({
         query: getIntervalsQuery(),
-        fetchPolicy: "network-only",
+        fetchPolicy: 'network-only',
         variables: {
           tokens: newData.map(({ tokenAddress }) => tokenAddress),
           exchange: EXCHANGE,
@@ -260,7 +260,7 @@ class DataService {
         },
       });
     } catch (e) {
-      this.handleError("Error fetching intervals Data", e);
+      this.handleError('Error fetching intervals Data', e);
       return;
     }
 
@@ -283,7 +283,7 @@ class DataService {
       {}
     );
 
-    logger.info("fetching onchain data");
+    logger.info('fetching onchain data');
     let chainData: any;
     try {
       chainData = await getTokenPoolLiquidity(
@@ -294,7 +294,7 @@ class DataService {
         }))
       );
     } catch (e) {
-      this.handleError("Error fetching onchain data", e);
+      this.handleError('Error fetching onchain data', e);
       return;
     }
 
@@ -311,7 +311,7 @@ class DataService {
     this.sendData();
 
     if (dataWithFetchedTimes.length) {
-      logger.info("writing new data to db");
+      logger.info('writing new data to db');
       const dataToInsert = dataWithFetchedTimes.flatMap((dataItem: any) => {
         const {
           tokenAddress,
@@ -343,7 +343,7 @@ class DataService {
       try {
         tokensCollection.insertMany(dataToInsert, { ordered: false });
       } catch (e) {
-        this.handleError("Error writing to database", e);
+        this.handleError('Error writing to database', e);
         return;
       }
     }
@@ -357,7 +357,7 @@ class DataService {
       return null; //TODO handle error
     }
     const db = this.mongoClient.db(DB_NAME);
-    const tokensCollection = db.collection("tokens");
+    const tokensCollection = db.collection('tokens');
     const tokenInfoFromDB = await tokensCollection.findOne({
       _id: tokenAddress,
     });
@@ -379,7 +379,7 @@ class DataService {
     try {
       queryData = await client.query({
         query: CHART_DATA_QUERY,
-        fetchPolicy: "network-only",
+        fetchPolicy: 'network-only',
         variables: {
           date,
           exchange: EXCHANGE,

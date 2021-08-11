@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export type TokenData = {
   tokenAddress: string;
@@ -34,7 +34,7 @@ const initialState: State = {
 };
 
 const tokensDataSlice = createSlice({
-  name: "tokensDataSlice",
+  name: 'tokensDataSlice',
   initialState,
   reducers: {
     tokensDataLoading(state) {

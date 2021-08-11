@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Fira Mono", monospace;
+  font-family: 'Fira Mono', monospace;
   @apply bg-white text-sm font-normal text-gray-600;
   @apply dark:bg-gray-800 dark:text-gray-300;
 }

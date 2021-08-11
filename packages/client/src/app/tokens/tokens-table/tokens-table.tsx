@@ -1,25 +1,25 @@
-import React, { useCallback, useMemo } from "react";
-import { writeStorage, useLocalStorage } from "@rehooks/local-storage";
-import { FixedSizeList } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { isNumber } from "lodash";
-import { useTable, useSortBy, useFilters, useBlockLayout } from "react-table";
+import React, { useCallback, useMemo } from 'react';
+import { writeStorage, useLocalStorage } from '@rehooks/local-storage';
+import { FixedSizeList } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { isNumber } from 'lodash';
+import { useTable, useSortBy, useFilters, useBlockLayout } from 'react-table';
 import {
   SortAscendingIcon,
   SortDescendingIcon,
   EyeIcon,
   EyeOffIcon,
-} from "@heroicons/react/outline";
-import classnames from "classnames";
-import { TIME_INTERVALS, TIME_INTERVALS_DATA } from "./constants";
-import "./tokens-table.css";
-import { TokenNameFilter } from "./components/token-name-filter";
-import { formatPrice, getChangePercentage } from "../../utils";
-import { HeaderPinned } from "./components/header-pinned";
-import { TokenCell } from "./components/token-cell";
-import { LaunchedCell } from "./components/launched-cell";
-import { LinksCell } from "./components/links-cell";
-import { TokenData, TokensData } from "../reducer";
+} from '@heroicons/react/outline';
+import classnames from 'classnames';
+import { TIME_INTERVALS, TIME_INTERVALS_DATA } from './constants';
+import './tokens-table.css';
+import { TokenNameFilter } from './components/token-name-filter';
+import { formatPrice, getChangePercentage } from '../../utils';
+import { HeaderPinned } from './components/header-pinned';
+import { TokenCell } from './components/token-cell';
+import { LaunchedCell } from './components/launched-cell';
+import { LinksCell } from './components/links-cell';
+import { TokenData, TokensData } from '../reducer';
 
 type Props = {
   data: TokensData;
@@ -30,20 +30,20 @@ const TABLE_HEADER_HEIGHT = 36;
 const getPercentageTableValue = ({ value }: { value: number }) => (
   <div
     className={`ml-auto truncate overflow-clip ${
-      isNumber(value) ? (value > 0 ? "text-green-500" : "text-red-500") : ""
+      isNumber(value) ? (value > 0 ? 'text-green-500' : 'text-red-500') : ''
     }`}
   >
-    {isNumber(value) ? `${Math.abs(value).toFixed()}%` : "-"}
+    {isNumber(value) ? `${Math.abs(value).toFixed()}%` : '-'}
   </div>
 );
 const getWrappedHeader = (caption: string) => <div>{caption}</div>;
 
 export const TokensTable = React.memo(({ data }: Props) => {
-  const [pinned] = useLocalStorage<String[]>("pinned", []);
+  const [pinned] = useLocalStorage<String[]>('pinned', []);
 
   const onPinClick = useCallback(
     (address: string) => {
-      writeStorage("pinned", [...pinned, address]);
+      writeStorage('pinned', [...pinned, address]);
     },
     [pinned]
   );
@@ -51,7 +51,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
   const onUnpinClick = useCallback(
     (address: string) => {
       writeStorage(
-        "pinned",
+        'pinned',
         pinned.filter((pinnedAddress) => pinnedAddress !== address)
       );
     },
@@ -78,7 +78,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
     () => [
       {
         Header: HeaderPinned,
-        accessor: "pinned",
+        accessor: 'pinned',
         disableSortBy: true,
         width: 36,
         Cell: ({
@@ -101,51 +101,51 @@ export const TokensTable = React.memo(({ data }: Props) => {
         },
       },
       {
-        Header: "Address",
-        accessor: "tokenAddress",
+        Header: 'Address',
+        accessor: 'tokenAddress',
       },
       {
-        Header: "",
-        accessor: "token",
+        Header: '',
+        accessor: 'token',
         width: 420,
         disableSortBy: true,
         Cell: TokenCell,
         Filter: TokenNameFilter,
-        filter: "tokenName",
+        filter: 'tokenName',
       },
       {
         Header: <div>Price($)</div>,
-        accessor: "price",
+        accessor: 'price',
         width: 100,
         sortDescFirst: true,
-        sortType: "basic",
+        sortType: 'basic',
         Cell: ({ value }: any) => (
           <div className="ml-auto">{formatPrice(value)}</div>
         ),
       },
       {
-        Header: getWrappedHeader("Liquidity(Ξ)"),
-        accessor: "liquidity",
+        Header: getWrappedHeader('Liquidity(Ξ)'),
+        accessor: 'liquidity',
         sortDescFirst: true,
         width: 140,
         Cell: ({ value }: any) => (
-          <div className="ml-auto">{value.toLocaleString("en-GB")}</div>
+          <div className="ml-auto">{value.toLocaleString('en-GB')}</div>
         ),
       },
       {
-        Header: getWrappedHeader("1h Volume($)"),
-        accessor: "volume",
+        Header: getWrappedHeader('1h Volume($)'),
+        accessor: 'volume',
         width: 140,
         sortDescFirst: true,
         Cell: ({ value }: any) => (
           <div className="ml-auto">
-            {Math.floor(value).toLocaleString("en-GB")}
+            {Math.floor(value).toLocaleString('en-GB')}
           </div>
         ),
       },
       {
-        Header: getWrappedHeader("~5m"),
-        accessor: "currentChange",
+        Header: getWrappedHeader('~5m'),
+        accessor: 'currentChange',
         sortDescFirst: true,
         width: 80,
         Cell: getPercentageTableValue,
@@ -154,7 +154,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
         Header: getWrappedHeader(
           TIME_INTERVALS_DATA[TIME_INTERVALS.MINUTE_15].caption
         ),
-        accessor: "minute15",
+        accessor: 'minute15',
         sortDescFirst: true,
         width: 80,
         Cell: getPercentageTableValue,
@@ -163,7 +163,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
         Header: getWrappedHeader(
           TIME_INTERVALS_DATA[TIME_INTERVALS.HOUR_1].caption
         ),
-        accessor: "hour1",
+        accessor: 'hour1',
         sortDescFirst: true,
         width: 80,
         Cell: getPercentageTableValue,
@@ -172,7 +172,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
         Header: getWrappedHeader(
           TIME_INTERVALS_DATA[TIME_INTERVALS.HOUR_4].caption
         ),
-        accessor: "hour4",
+        accessor: 'hour4',
         sortDescFirst: true,
         width: 80,
         Cell: getPercentageTableValue,
@@ -181,7 +181,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
         Header: getWrappedHeader(
           TIME_INTERVALS_DATA[TIME_INTERVALS.DAY_1].caption
         ),
-        accessor: "day1",
+        accessor: 'day1',
         sortDescFirst: true,
         width: 80,
         Cell: getPercentageTableValue,
@@ -190,21 +190,21 @@ export const TokensTable = React.memo(({ data }: Props) => {
         Header: getWrappedHeader(
           TIME_INTERVALS_DATA[TIME_INTERVALS.WEEK_1].caption
         ),
-        accessor: "week1",
+        accessor: 'week1',
         sortDescFirst: true,
         width: 80,
         Cell: getPercentageTableValue,
       },
       {
-        Header: "Launched",
-        accessor: "launch",
+        Header: 'Launched',
+        accessor: 'launch',
         sortDescFirst: true,
         width: 140,
         Cell: LaunchedCell,
       },
       {
-        Header: "",
-        accessor: "links",
+        Header: '',
+        accessor: 'links',
         width: 80,
         disableSortBy: true,
         Cell: LinksCell,
@@ -291,11 +291,11 @@ export const TokensTable = React.memo(({ data }: Props) => {
         initialState: {
           sortBy: [
             {
-              id: "volume",
+              id: 'volume',
               desc: true,
             },
           ],
-          hiddenColumns: ["tokenAddress"],
+          hiddenColumns: ['tokenAddress'],
         },
       },
       useFilters,
@@ -314,9 +314,9 @@ export const TokensTable = React.memo(({ data }: Props) => {
     ({ index, style }) => {
       const row = rowsWithPinned[index];
       prepareRow(row);
-      const rowClassName = classnames("row", {
-        "row-pinned": row.values?.pinned,
-        "row-fresh": row.values?.fresh,
+      const rowClassName = classnames('row', {
+        'row-pinned': row.values?.pinned,
+        'row-fresh': row.values?.fresh,
       });
 
       return (
@@ -333,7 +333,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
             return (
               <div {...cell.getCellProps()} className="p-1 truncate">
                 <div className="flex items-center h-full">
-                  {cell.render("Cell")}
+                  {cell.render('Cell')}
                 </div>
               </div>
             );
@@ -352,9 +352,9 @@ export const TokensTable = React.memo(({ data }: Props) => {
       >
         {headerGroups.map((headerGroup) =>
           headerGroup.headers.map((column) => {
-            const headerClasses = classnames("header", {
-              "header-sortable": !column.disableSortBy,
-              "header-sorted": column.isSorted,
+            const headerClasses = classnames('header', {
+              'header-sortable': !column.disableSortBy,
+              'header-sorted': column.isSorted,
             });
             return (
               <div
@@ -371,10 +371,10 @@ export const TokensTable = React.memo(({ data }: Props) => {
                       )}
                     </div>
                   ) : (
-                    ""
+                    ''
                   )}
-                  {column.render("Header")}
-                  {column.canFilter ? column.render("Filter") : null}
+                  {column.render('Header')}
+                  {column.canFilter ? column.render('Filter') : null}
                 </div>
               </div>
             );

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { useAppDispatch } from "../store/hooks";
-import { tokensDataLoaded } from "./reducer";
+import { useEffect } from 'react';
+import { useAppDispatch } from '../store/hooks';
+import { tokensDataLoaded } from './reducer';
 
 let subscription: EventSource | undefined;
 

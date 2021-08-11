@@ -1,5 +1,5 @@
-import { ethers } from "ethers";
-import { QUOTE_CURRENCY, EXCHANGE, INIT_CODE_HASH } from "./constants";
+import { ethers } from 'ethers';
+import { QUOTE_CURRENCY, EXCHANGE, INIT_CODE_HASH } from './constants';
 
 export const sortsBefore = (tokenA: string, tokenB: string) => {
   return tokenA.toLowerCase() < tokenB.toLowerCase();
@@ -14,7 +14,7 @@ export const getPairAddress = (tokenA: string, tokenB: string) => {
   return ethers.utils
     .getCreate2Address(
       EXCHANGE,
-      ethers.utils.solidityKeccak256(["address", "address"], [token0, token1]),
+      ethers.utils.solidityKeccak256(['address', 'address'], [token0, token1]),
       INIT_CODE_HASH
     )
     .toLowerCase();

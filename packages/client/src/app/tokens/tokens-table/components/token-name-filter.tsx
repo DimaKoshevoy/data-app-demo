@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect } from "react";
-import { debounce } from "lodash";
+import React, { useCallback, useState, useEffect } from 'react';
+import { debounce } from 'lodash';
 
 const DEBOUNCE = 500;
 
@@ -29,7 +29,7 @@ export const TokenNameFilter = ({
     <div className="flex w-full">
       <input
         className="w-full appearance-none bg-transparent border-none focus:outline-none"
-        value={value || ""}
+        value={value || ''}
         onChange={onChange}
         placeholder={`Top ${count} tokens by hourly volume..`}
       />

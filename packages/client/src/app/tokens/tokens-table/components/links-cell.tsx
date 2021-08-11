@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { ChartBarIcon } from "@heroicons/react/outline";
-import React from "react";
+import { Link } from 'react-router-dom';
+import { ChartBarIcon } from '@heroicons/react/outline';
+import React from 'react';
 
 export const LinksCell = ({ row }: any) => {
   return (

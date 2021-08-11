@@ -1,7 +1,7 @@
-import { ethers, BigNumber } from "ethers";
-import { Contract, Provider } from "ethers-multicall";
-import { QUOTE_CURRENCY } from "./constants";
-import { sortsBefore } from "./utils";
+import { ethers, BigNumber } from 'ethers';
+import { Contract, Provider } from 'ethers-multicall';
+import { QUOTE_CURRENCY } from './constants';
+import { sortsBefore } from './utils';
 
 type TokenData = {
   tokenAddress: string;
@@ -26,7 +26,7 @@ export const getTokenPoolLiquidity = async (
 
   const reservesCalls = tokens.map(({ pairAddress }) => {
     const poolContract = new Contract(pairAddress, [
-      "function getReserves() external view returns (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast)",
+      'function getReserves() external view returns (uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast)',
     ]);
 
     return poolContract.getReserves();
@@ -38,7 +38,7 @@ export const getTokenPoolLiquidity = async (
   const balanceCalls = tokensWithLiquidityInfo.map(
     ({ pairAddress, liquidityCreator }) => {
       const poolContract = new Contract(pairAddress, [
-        "function balanceOf(address owner) external view returns (uint)",
+        'function balanceOf(address owner) external view returns (uint)',
       ]);
 
       return poolContract.balanceOf(liquidityCreator);
@@ -46,7 +46,7 @@ export const getTokenPoolLiquidity = async (
   );
   const lpTotalSupplyCalls = tokensWithLiquidityInfo.map(({ pairAddress }) => {
     const poolContract = new Contract(pairAddress, [
-      "function totalSupply() external view returns (uint)",
+      'function totalSupply() external view returns (uint)',
     ]);
 
     return poolContract.totalSupply();

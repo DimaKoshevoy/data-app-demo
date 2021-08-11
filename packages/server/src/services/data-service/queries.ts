@@ -1,5 +1,5 @@
-import { gql } from "@apollo/client/core";
-import { TIME_INTERVALS, TIME_INTERVALS_DATA, USDC } from "./constants";
+import { gql } from '@apollo/client/core';
+import { TIME_INTERVALS, TIME_INTERVALS_DATA, USDC } from './constants';
 
 const getTimeBefore = (now: number, interval: number) => {
   return new Date(now - interval).toISOString();

@@ -1,6 +1,6 @@
-import { ethers } from "ethers";
-import { TIME_INTERVALS, TIME_INTERVALS_DATA, USDC, DAI } from "./constants";
-import { getPriceInUSD } from "./utils";
+import { ethers } from 'ethers';
+import { TIME_INTERVALS, TIME_INTERVALS_DATA, USDC, DAI } from './constants';
+import { getPriceInUSD } from './utils';
 
 const getTimePrice = (interval: string, token: any, usd: any) => {
   const tokenPriceInQuote = Number(token[interval]?.open_price);

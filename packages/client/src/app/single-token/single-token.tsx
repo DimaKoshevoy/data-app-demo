@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Chart from "kaktana-react-lightweight-charts";
-import { CrosshairMode } from "lightweight-charts";
-import { useParams } from "react-router-dom";
-import { formatPrice } from "../utils";
-import { useTheme, THEMES } from "../theme/useTheme";
-import { LoadingOverlay } from "../components/loader/loading-overlay";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { getChartData, cleanChartData } from "./reducer";
+import React, { useEffect, useState } from 'react';
+import Chart from 'kaktana-react-lightweight-charts';
+import { CrosshairMode } from 'lightweight-charts';
+import { useParams } from 'react-router-dom';
+import { formatPrice } from '../utils';
+import { useTheme, THEMES } from '../theme/useTheme';
+import { LoadingOverlay } from '../components/loader/loading-overlay';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { getChartData, cleanChartData } from './reducer';
 
 const DEFAULT_OPTIONS = {
   alignLabels: true,
@@ -25,7 +25,7 @@ const CANDLE_OPTIONS = {
 };
 
 const HISTO_OPTIONS = {
-  overlay: "histo",
+  overlay: 'histo',
   scaleMargins: {
     top: 0.9,
     bottom: 0,
@@ -36,22 +36,22 @@ const HISTO_OPTIONS = {
 
 const DARK_THEME = {
   layout: {
-    backgroundColor: "#253248",
-    textColor: "rgba(255, 255, 255, 0.9)",
+    backgroundColor: '#253248',
+    textColor: 'rgba(255, 255, 255, 0.9)',
   },
   grid: {
     vertLines: {
-      color: "#334158",
+      color: '#334158',
     },
     horzLines: {
-      color: "#334158",
+      color: '#334158',
     },
   },
   priceScale: {
-    borderColor: "#485c7b",
+    borderColor: '#485c7b',
   },
   timeScale: {
-    borderColor: "#485c7b",
+    borderColor: '#485c7b',
     lockVisibleTimeRangeOnResize: true,
   },
 };
@@ -81,10 +81,10 @@ export const SingleToken = () => {
   useEffect(() => {
     if (chartData?.length) {
       setCandlestickSeries([
-        { data: chartData, legend: "Price", options: CANDLE_OPTIONS },
+        { data: chartData, legend: 'Price', options: CANDLE_OPTIONS },
       ]);
       setHistogramSeries([
-        { data: chartData, legend: "Volume", options: HISTO_OPTIONS },
+        { data: chartData, legend: 'Volume', options: HISTO_OPTIONS },
       ]);
       setFrom(chartData[0].time);
       setTo(chartData[chartData.length - 1].time);

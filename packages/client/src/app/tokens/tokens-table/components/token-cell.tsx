@@ -1,6 +1,6 @@
-import { InformationCircleIcon } from "@heroicons/react/outline";
-import { AddressCopy } from "./address-copy";
-import React from "react";
+import { InformationCircleIcon } from '@heroicons/react/outline';
+import { AddressCopy } from './address-copy';
+import React from 'react';
 
 export const TokenCell = ({ value }: any) => {
   const { address, name, symbol, unlockedLP } = value;
@@ -18,7 +18,7 @@ export const TokenCell = ({ value }: any) => {
       <div className="whitespace-nowrap font-medium">{name}</div>
       <div className="flex">
         <div>{symbol}</div> {explorer}
-        <AddressCopy address={address} />{" "}
+        <AddressCopy address={address} />{' '}
         <div className="ml-1">{unlockedLP}</div>
       </div>
     </div>

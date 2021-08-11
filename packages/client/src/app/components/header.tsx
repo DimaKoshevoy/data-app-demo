@@ -1,13 +1,13 @@
-import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
-import { ChevronRightIcon } from "@heroicons/react/outline";
-import { ThemeSwitch } from "../theme/theme-switch";
-import { useAppSelector } from "../store/hooks";
+import React from 'react';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { ChevronRightIcon } from '@heroicons/react/outline';
+import { ThemeSwitch } from '../theme/theme-switch';
+import { useAppSelector } from '../store/hooks';
 
 export const HEADER_HEIGHT = 64;
 
 export const Header = () => {
-  const match = useRouteMatch<{ address: string }>("/token/:address");
+  const match = useRouteMatch<{ address: string }>('/token/:address');
   const address = match?.params?.address;
   const tokenData = useAppSelector(({ tokensDataSlice: { dataByAddress } }) =>
     address ? dataByAddress[address] : null
