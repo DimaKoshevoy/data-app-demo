@@ -11,7 +11,8 @@
     "client": "yarn workspace @app/client start",
     "server": "yarn workspace @app/server start",
     "build": "yarn workspace @app/client build",
-    "prod": "yarn run build && yarn run server"
+    "start": "yarn run build && yarn run server",
+    "prod": "yarn run start"
   },
   "workspaces": [
     "packages/*"
