@@ -219,7 +219,7 @@ export const TokensTable = React.memo(({ data }: Props) => {
         tokenAddress,
         tokenName,
         tokenSymbol,
-        decimals,
+        // decimals,
         launch,
         liquidity,
         volume,

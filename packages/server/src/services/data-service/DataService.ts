@@ -39,7 +39,6 @@ class DataService {
   mongoClient = new MongoClient(DB_URL);
   updateTimeout: NodeJS.Timeout | undefined;
   clients: Client[] = [];
-  pingInterval: NodeJS.Timeout | undefined;
   dataLimit: number = 100;
   data: any; //TODO type data
 
@@ -50,14 +49,6 @@ class DataService {
     logger.info(`Connected to MongoDB at ${DB_URL}`);
 
     this.getData();
-
-    // TODO remove heroku free dyno sleep workaround
-    this.pingInterval = setInterval(() => {
-      logger.info(`pinging ${this.clients.length} clients`);
-      this.clients.forEach((client) => {
-        client.response.write(`event: ping\n\n`);
-      });
-    }, 10000);
   };
 
   addClient(id: string, response: Response) {
@@ -366,7 +357,7 @@ class DataService {
     let date = new Date(now - ONE_DAY * 30).toISOString();
     let hour = 4;
     if (tokenInfoFromDB?.timestamp) {
-      const offset = now - tokenInfoFromDB.timestamp;
+      const offset = now - tokenInfoFromDB.timestamp * 1000;
       if (offset < ONE_DAY * 30) {
         date = new Date(tokenInfoFromDB?.timestamp).toISOString();
       }
@@ -388,12 +379,12 @@ class DataService {
           hour,
         },
       });
+
+      return getChartData(queryData);
     } catch (e) {
       logger.error(`Error fetching chart for ${tokenAddress}`);
       return null;
     }
-
-    return getChartData(queryData);
   };
 }
 
