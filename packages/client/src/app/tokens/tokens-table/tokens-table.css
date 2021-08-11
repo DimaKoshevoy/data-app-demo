@@ -23,11 +23,11 @@
 }
 
 .header-sorted {
-  box-shadow: inset 0px -2px 0px 0px #9CA3AF;
+  box-shadow: inset 0px -2px 0px 0px #9ca3af;
 }
 
 .header-sortable:hover {
-  box-shadow: inset 0px -2px 0px 0px #9CA3AF;
+  box-shadow: inset 0px -2px 0px 0px #9ca3af;
 }
 
 .sort-icon {

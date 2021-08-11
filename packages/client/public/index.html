@@ -4,25 +4,25 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000"/>
-    <meta
-      name="description"
-      content="Data App"
-    />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Data App" />
     <script>
       // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-      //CSP hash sha256-KbPGqvsMKon/cJBuFN6o7mMo+6J91JeuAswXbrhPh+A=
-      if (localStorage.theme === 'dark' || !('theme' in localStorage)) {
-        document.documentElement.classList.add('dark')
+      // CSP hash sha256-KbPGqvsMKon/cJBuFN6o7mMo+6J91JeuAswXbrhPh+A=
+      if (localStorage.theme === "dark" || !("theme" in localStorage)) {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark')
+        document.documentElement.classList.remove("dark");
       }
     </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Data App</title>
   </head>
   <body>

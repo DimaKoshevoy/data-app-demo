@@ -1,46 +1,48 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 type IntervalData = {
-  open: number,
-  high: number,
-  low: number,
-  close: number,
-  time: number,
-  value: number,
-  trades: number
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  time: number;
+  value: number;
+  trades: number;
 };
 type ChartData = IntervalData[];
 
 type State = {
-  loading: boolean,
-  chartData: ChartData | null
-}
+  loading: boolean;
+  chartData: ChartData | null;
+};
 
 const initialState: State = {
   loading: true,
-  chartData: null
+  chartData: null,
 };
 
 export const getChartData = createAsyncThunk(
-  'chartData/getChartData',
+  "chartData/getChartData",
   async (tokenAddress: string) => {
-    const dataResponse = await fetch(`${process.env.REACT_APP_API_ROOT}/chart/${tokenAddress}`);
+    const dataResponse = await fetch(
+      `${process.env.REACT_APP_API_ROOT}/chart/${tokenAddress}`
+    );
     const chartData = await dataResponse.json();
 
     return chartData;
   }
-)
+);
 
 const singleTokenSlice = createSlice({
-  name: 'chartData',
+  name: "chartData",
   initialState,
   reducers: {
     cleanChartData(state) {
       state.loading = true;
       state.chartData = [];
-    }
+    },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder.addCase(getChartData.fulfilled, (state, action) => {
       state.chartData = action.payload;
       state.loading = false;
@@ -48,6 +50,6 @@ const singleTokenSlice = createSlice({
   },
 });
 
-const {reducer, actions} = singleTokenSlice;
-export const {cleanChartData} = actions;
-export default reducer
+const { reducer, actions } = singleTokenSlice;
+export const { cleanChartData } = actions;
+export default reducer;
