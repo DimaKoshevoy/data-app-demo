@@ -1,0 +1,36 @@
+.trade-volume-table {
+  height: 100%;
+  @apply text-sm;
+}
+
+.table {
+  margin: auto;
+  height: 100%;
+}
+
+.row {
+  @apply border-b border-gray-100 hover:bg-gray-100;
+  @apply dark:border-gray-700 dark:hover:bg-gray-700;
+}
+
+.row-pinned {
+  @apply border-b border-gray-300 bg-gray-200 hover:bg-gray-300;
+  @apply dark:border-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500;
+}
+
+.header {
+  @apply p-1 font-medium border-b border-gray-400;
+}
+
+.header-sorted {
+  box-shadow: inset 0px -2px 0px 0px #9CA3AF;
+}
+
+.header-sortable:hover {
+  box-shadow: inset 0px -2px 0px 0px #9CA3AF;
+}
+
+.sort-icon {
+  position: relative;
+  top: 2px;
+}

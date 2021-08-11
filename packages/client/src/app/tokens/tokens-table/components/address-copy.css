@@ -1,0 +1,7 @@
+.address-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  direction: rtl;
+  max-width: 48px;
+}

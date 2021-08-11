@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "author": "Dima Koshevoy",
+  "license": "ISC",
+  "private": true,
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "client": "yarn workspace @app/client start",
+    "server": "yarn workspace @app/server start",
+    "build": "yarn workspace @app/client build",
+    "prod": "yarn run build && yarn run server"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "find-yarn-workspace-root": "^2.0.0"
+  }
+}

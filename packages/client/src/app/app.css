@@ -1,0 +1,15 @@
+html,
+body,
+#root {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.clickable {
+  @apply cursor-pointer text-gray-500 hover:text-gray-900;
+  @apply dark:text-gray-400 dark:hover:text-white;
+}
+
+a {
+  @apply clickable;
+}
