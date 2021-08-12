@@ -25,8 +25,6 @@ export const Header = () => {
             to="/"
             className="text-lg sm:text-xl flex items-center sm:space-x-1"
           >
-            <div>Ethereum</div>
-            <ChevronRightIcon className="h-4 w-4" />
             <div>Uniswap2</div>
           </Link>
           {address && tokenData?.tokenName ? (

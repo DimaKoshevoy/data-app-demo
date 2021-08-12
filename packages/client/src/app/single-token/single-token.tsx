@@ -12,12 +12,18 @@ import {
   HISTO_OPTIONS,
   LIGHT_THEME,
 } from './constants';
+import { TokenData } from '../tokens/reducer';
+
+const getPriceLegend = (tokenData: TokenData) => tokenData?.tokenSymbol ? `${tokenData?.tokenSymbol}/USD` : 'Price';
 
 export const SingleToken = () => {
   const dispatch = useAppDispatch();
   const { address } = useParams<{ address: string }>();
   const chartData = useAppSelector(
     ({ singleTokenSlice: { chartData } }) => chartData
+  );
+  const tokenData = useAppSelector(
+    ({ tokensDataSlice: {dataByAddress} }) => dataByAddress[address]
   );
   const { theme } = useTheme();
 
@@ -29,7 +35,7 @@ export const SingleToken = () => {
   useEffect(() => {
     if (chartData?.length) {
       setCandlestickSeries([
-        { data: chartData, legend: 'Price', options: CANDLE_OPTIONS },
+        { data: chartData, legend: getPriceLegend(tokenData), options: CANDLE_OPTIONS },
       ]);
       setHistogramSeries([
         { data: chartData, legend: 'Volume', options: HISTO_OPTIONS },
@@ -37,7 +43,7 @@ export const SingleToken = () => {
       setFrom(chartData[0].time);
       setTo(chartData[chartData.length - 1].time);
     }
-  }, [chartData]);
+  }, [chartData, tokenData]);
 
   useEffect(() => {
     dispatch(getChartData(address));
