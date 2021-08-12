@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import { TIME_INTERVALS, TIME_INTERVALS_DATA, USDC } from './constants';
+import { TIME_INTERVALS, TIME_INTERVALS_DATA, DAI } from './constants';
 
 const getTimeBefore = (now: number, interval: number) => {
   return new Date(now - interval).toISOString();
@@ -286,7 +286,7 @@ export const CHART_DATA_QUERY = gql`
                 exchangeAddress: {is: $exchange}
                 time: {since: $date}
                 quoteCurrency: {is: $quote}
-                baseCurrency: {is: "${USDC}"}
+                baseCurrency: {is: "${DAI}"}
             ) {
                 baseCurrency {
                     address
