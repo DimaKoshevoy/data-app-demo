@@ -26,11 +26,13 @@ type Client = {
   response: any;
 };
 
+const PING_INTERVAL = 30000;
+
 const ONE_MINUTE = 1000 * 60;
 const ONE_HOUR = ONE_MINUTE * 60;
 const ONE_DAY = ONE_HOUR * 24;
 const VOLUME_TIME_PERIOD = ONE_MINUTE * 60;
-const UPDATE_INTERVAL = ONE_MINUTE * 2;
+const UPDATE_INTERVAL = ONE_MINUTE;
 
 const DB_URL = process.env.MONGODB_URI || '';
 const DB_NAME = process.env.MONGODB_NAME || '';
@@ -38,6 +40,7 @@ const DB_NAME = process.env.MONGODB_NAME || '';
 class DataService {
   mongoClient = new MongoClient(DB_URL);
   updateTimeout: NodeJS.Timeout | undefined;
+  pingInterval: NodeJS.Timeout | undefined;
   clients: Client[] = [];
   dataLimit: number = 100;
   data: any; //TODO type data
@@ -49,6 +52,14 @@ class DataService {
     logger.info(`Connected to MongoDB at ${DB_URL}`);
 
     this.getData();
+
+    // TODO heroku requet timeout
+    this.pingInterval = setInterval(() => {
+      logger.info(`pinging ${this.clients.length} clients`)
+      this.clients.forEach(client => {
+        client.response.write(`event: ping\n\n`);
+      });
+    }, PING_INTERVAL);
   };
 
   addClient(id: string, response: Response) {
