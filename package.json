@@ -8,11 +8,11 @@
     "node": "16.x"
   },
   "scripts": {
+    "start": "yarn run build && yarn run server",
     "client": "yarn workspace @app/client start",
     "server": "yarn workspace @app/server start",
     "build": "yarn workspace @app/client build",
-    "start": "yarn run build && yarn run server",
-    "prod": "yarn run start"
+    "prod": "yarn workspace @app/server prod"
   },
   "workspaces": [
     "packages/*"
