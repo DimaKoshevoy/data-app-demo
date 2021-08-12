@@ -58,8 +58,8 @@ app.listen(PORT, () => {
 app.get('/api/subscribe', (request, response) => {
   const headers = {
     'Content-Type': 'text/event-stream',
-    Connection: 'keep-alive',
-    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Cache-Control': 'no-cache'
   };
   response.writeHead(200, headers);
 
