@@ -5,7 +5,7 @@
   "license": "ISC",
   "scripts": {
     "start": "npx ts-node src/server.ts",
-    "prod": "npx ts-node src/server.ts --tranpileOnly",
+    "prod": "npx ts-node src/server.ts --transpile-only",
     "debug": "node --inspect -r ts-node/register server.ts"
   },
   "dependencies": {
